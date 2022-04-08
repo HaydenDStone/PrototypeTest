@@ -73,7 +73,6 @@ def getResults(input):
   plt.title('Sentiment Analysis using Twitter hashtags')
   plt.xlabel('Polarity')
   plt.ylabel("Subjectivity")
-  plt.show( )
 
   st.write(fig)
 
@@ -104,11 +103,13 @@ def getResults(input):
   df['Analysis'].value_counts()
 
   #plot and visualize the counts:
+  fig2 = plt.figure(figsize=(8,6))
+
   plt.title("Sentiment Analysis")
   plt.xlabel('Sentiment')
   plt.ylabel('Count')
   df['Analysis'].value_counts().plot(kind='bar')
-  plt.show()
+  st.write(fig2)
 
 
 def main():
