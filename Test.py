@@ -62,13 +62,13 @@ def getResults(input):
   df['Polarity'] = df['Tweets'].apply(getPolarity)
   df['Analysis'] = df['Polarity'].apply(getAnalysis)
 
-  st.dataframe(df.style.highlight_max(axis=0, color='lightblue'))
+  st.dataframe(df.style.highlight_max(axis=0, color='#3B54A1'))
 
 #VISUALIZATION
 #Plot the polarity and subjectivity:
   fig = plt.figure(figsize=(8,6))
   for i in range(0, df.shape[0]):
-    plt.scatter(df['Polarity'][i], df['Subjectivity'][i], color='Blue')
+    plt.scatter(df['Polarity'][i], df['Subjectivity'][i], color='#3B54A1')
 
   plt.title('Sentiment Analysis using Twitter hashtags')
   plt.xlabel('Polarity')
