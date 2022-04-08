@@ -51,7 +51,7 @@ def getResults(input):
               q= filter_retweets_search,
               lang="en" 
               ).items(tweet_num)
-
+#Dataframe
   df = pd.DataFrame([tweet.text for tweet in posts], columns=['Tweets'])
 
   df['Tweets'] = df['Tweets'].apply(cleanTxt)
@@ -60,6 +60,7 @@ def getResults(input):
 
   df['Subjectivity'] = df['Tweets'].apply(getSubjectivity)
   df['Polarity'] = df['Tweets'].apply(getPolarity)
+  df['Analysis'] = df['Polarity'].apply(getAnalysis)
 
   st.dataframe(df.style.highlight_max(axis=0, color='lightblue'))
 
@@ -75,6 +76,39 @@ def getResults(input):
   plt.show( )
 
   st.write(fig)
+
+  #Get the percentage of positive tweets:
+  ptweets = df[df.Analysis == 'Positive']
+  ptweets = ptweets['Tweets']
+
+  st.write('Percentage of positive tweets: ')
+  st.write(round( (ptweets.shape[0] / df.shape[0]) *100, 1 ))
+
+
+  #Get the percentage of negative tweets:
+  ntweets = df[df.Analysis == 'Negative']
+  ntweets = ntweets['Tweets']
+
+  st.write('Percentage of negative tweets: ')
+  st.write(round( (ntweets.shape[0] / df.shape[0]) *100, 1 ))
+
+  #Get the percentage of neutral tweets:
+  netweets = df[df.Analysis == 'Neutral']
+  netweets = netweets['Tweets']
+
+  st.write('Percentage of neutral tweets: ')
+  st.write(round( (netweets.shape[0] / df.shape[0]) *100, 1 ))
+
+  #Show the value counts:
+
+  df['Analysis'].value_counts()
+
+  #plot and visualize the counts:
+  plt.title("Sentiment Analysis")
+  plt.xlabel('Sentiment')
+  plt.ylabel('Count')
+  df['Analysis'].value_counts().plot(kind='bar')
+  plt.show()
 
 
 def main():
